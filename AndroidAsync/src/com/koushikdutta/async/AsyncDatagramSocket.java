@@ -36,7 +36,7 @@ public class AsyncDatagramSocket extends AsyncNetworkSocket {
         try {
             ((DatagramChannelWrapper)getChannel()).mChannel.send(buffer, new InetSocketAddress(host, port));
         }
-        catch (IOException e) {
+        catch (Exception e) {
 //            close();
 //            reportEndPending(e);
 //            reportClose(e);
