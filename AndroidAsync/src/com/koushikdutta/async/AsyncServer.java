@@ -30,6 +30,7 @@ import java.nio.channels.DatagramChannel;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.channels.UnresolvedAddressException;
 import java.nio.channels.spi.SelectorProvider;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -536,6 +537,9 @@ public class AsyncServer {
                     Log.e(LOGTAG, "Datagram error", e);
                     StreamUtility.closeQuietly(socket);
                 }
+                // many users throws this exception...
+                catch (UnresolvedAddressException e) {
+                }
             }
         });
         return handler;
@@ -617,6 +621,9 @@ public class AsyncServer {
                 Log.e(LOGTAG, "Datagram error", e);
                 StreamUtility.closeQuietly(socket);
             }
+            // many users throws this exception...
+            catch (UnresolvedAddressException e) {
+            }
         };
 
         if (getAffinity() != Thread.currentThread()) {
@@ -642,6 +649,9 @@ public class AsyncServer {
             }
             catch (IOException e) {
                 StreamUtility.closeQuietly(socket);
+            }
+            // many users throws this exception...
+            catch (UnresolvedAddressException e) {
             }
         };
 
